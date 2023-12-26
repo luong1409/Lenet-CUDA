@@ -38,5 +38,8 @@ clean:
 		rm m2
 		rm m2.o
 
+clean_o:
+		rm -f *.o src/*.o src/layer/*.o src/loss/*.o src/optimizer/*.o src/layer/custom/*.o
+
 run: 		m2
 		./m2 1000
