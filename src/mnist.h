@@ -19,6 +19,7 @@ public:
 
     void read_mnist_data(std::string filename, Matrix &data);
     void read_mnist_label(std::string filename, Matrix &labels);
+    void read_test_data(int batch_size); 
 
     explicit MNIST(std::string data_dir) : data_dir(data_dir) {}
     void read();
