@@ -1,8 +1,8 @@
-#include "ece408net.h"
+#include "helper.h"
 
 void inference_only(int batch_size)
 {
-    std::cout << "Loading fashion-mnist data...";
+    std::cout << "Loading mnist data...";
     MNIST dataset("./data/");
     dataset.read_test_data(batch_size);
     std::cout << "Done" << std::endl;

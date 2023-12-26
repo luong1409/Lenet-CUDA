@@ -1,21 +1,30 @@
+########################################################## Test Run Train on CPU #######################################################
 test_classic.o:     test_classic.cc
 	nvcc --compile test_classic.cc -I./ -L/usr/local/cuda/lib64 -lcudart
 
 test_classic:       test_classic.o
-	nvcc -o test_classic -lm -lcuda -lrt test_cpu.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
+	nvcc -o test_classic -lm -lcuda -lrt test_classic.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
 run_test_classic:       test_classic
 	./test_classic
 
+#########################################################################################################################################
 
-m2:     m2.o custom
-	nvcc -o m2 -lm -lcuda -lrt m2.o ece408net.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/layer/custom/*.o ../libgputk/lib/libgputk.a -I./ 
 
-m2.o:       m2.cc
-	nvcc --compile m2.cc -I ../libgputk/ -I./
 
-ece408net.o:        ece408net.cc
-	nvcc --compile ece408net.cc -I ../libgputk/ -I./
+########################################################## Test Run Inference on GPU #######################################################
+infer_basic_GPU:     infer_basic_GPU.o custom
+	nvcc -o infer_basic_GPU -lm -lcuda -lrt infer_basic_GPU.o helper.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/layer/custom/*.o ../libgputk/lib/libgputk.a -I./ 
+
+infer_basic_GPU.o:       infer_basic_GPU.cc
+	nvcc --compile infer_basic_GPU.cc -I./ -L/usr/local/cuda/lib64 -lcudart
+
+run_infer_basic_GPU:		infer_basic_GPU
+	./infer_basic_GPU
+#########################################################################################################################################
+
+helper.o:        helper.cc
+	nvcc --compile helper.cc -I ../libgputk/ -I./
 
 network.o:      src/network.cc
 	nvcc --compile src/network.cc -o src/network.o -I./ -L/usr/local/cuda/lib64 -lcudart
@@ -61,5 +70,3 @@ setup:
 	make loss
 	make optimizer
 
-run:        m2
-	./m2 1000

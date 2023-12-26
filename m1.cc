@@ -1,4 +1,4 @@
-#include "ece408net.h"
+#include "helper.h"
 
 void inference_only(int batch_size)
 {
