@@ -41,6 +41,9 @@ loss:       src/loss/cross_entropy_loss.cc src/loss/mse_loss.cc
 	nvcc --compile src/loss/cross_entropy_loss.cc -o src/loss/cross_entropy_loss.o -I./ -L/usr/local/cuda/lib64 -lcudart
 	nvcc --compile src/loss/mse_loss.cc -o src/loss/mse_loss.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
+optimizer:		src/optimizer/sgd.cc
+	nvcc --compile src/optimizer/sgd.cc -o src/optimizer/sgd.o -I./ -L/usr/local/cuda/lib64 -lcudart
+
 
 clean:
 	rm m2
