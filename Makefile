@@ -13,6 +13,8 @@ run_test_classic:       test_classic
 
 
 ########################################################## Test Run Inference on GPU #######################################################
+
+
 infer_basic_GPU:     infer_basic_GPU.o custom
 	nvcc -o infer_basic_GPU -lm -lcuda -lrt infer_basic_GPU.o helper.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/layer/custom/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
@@ -44,6 +46,8 @@ layer:      src/layer/conv.cc src/layer/ave_pooling.cc src/layer/fully_connected
 
 custom:
 	nvcc --compile src/layer/custom/gpu-utils.cu -o src/layer/custom/gpu-utils.o -I./ -L/usr/local/cuda/lib64 -lcudart
+	# nvcc --compile src/layer/custom/gpu-new-forward-optimized.cu -o src/layer/custom/gpu-new-forward-optimized.o -I./ -L/usr/local/cuda/lib64 -lcudart
+	nvcc --compile src/layer/custom/gpu-new-forward-basic.cu -o src/layer/custom/gpu-new-forward-basic.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
 loss:       src/loss/cross_entropy_loss.cc src/loss/mse_loss.cc
 	nvcc --compile src/loss/cross_entropy_loss.cc -o src/loss/cross_entropy_loss.o -I./ -L/usr/local/cuda/lib64 -lcudart
@@ -61,8 +65,7 @@ clean_o:
 	rm -f *.o src/*.o src/layer/*.o src/loss/*.o src/optimizer/*.o src/layer/custom/*.o
 
 setup:
-	# make clean_o
-	# make clean
+	make clean_o
 	make network.o
 	make mnist.o
 	make layer

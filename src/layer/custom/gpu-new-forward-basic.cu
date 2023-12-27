@@ -3,6 +3,18 @@
 #include "gpu-new-forward.h"
 
 #define TILE_WIDTH 16
+#define CHECK(call)                                                \
+    {                                                              \
+        const cudaError_t error = call;                            \
+        if (error != cudaSuccess)                                  \
+        {                                                          \
+            fprintf(stderr, "Error: %s:%d, ", __FILE__, __LINE__); \
+            fprintf(stderr, "code: %d, reason: %s\n", error,       \
+                    cudaGetErrorString(error));                    \
+            exit(EXIT_FAILURE);                                    \
+        }                                                          \
+    }
+
 
 __global__ void conv_forward_kernel(float *y, const float *x, const float *k, const int B, const int M, const int C, const int H, const int W, const int K)
 {
@@ -43,7 +55,7 @@ __global__ void conv_forward_kernel(float *y, const float *x, const float *k, co
 #undef k4d
 }
 
-__host__ void GPUInterface::conv_forward_gpu_prolog(const float *host_y, const float *host_x, const float *host_k, float **device_y_ptr, float **device_x_ptr, float **device_k_ptr, const int B, const int M, const int C, const int H, const int W, const int K)
+__host__ void GPUInterface::conv_forward_gpu_prolog(const float *host_y, float *host_x, float *host_k, float *device_y_ptr, float *device_x_ptr, float *device_k_ptr, const int B, const int M, const int C, const int H, const int W, const int K)
 {
     // Allocate memory and copy over the relevant data structures to the GPU
 
@@ -57,14 +69,14 @@ __host__ void GPUInterface::conv_forward_gpu_prolog(const float *host_y, const f
     int outputSize = B * M * H_out * W_out * sizeof(float); // output feature map is M
     int maskSize = M * C * K * K * sizeof(float);           // C * M filter Maps of size K*K
 
-    cudaMalloc((void **)device_x_ptr, inputSize);
-    cudaMalloc((void **)device_y_ptr, outputSize);
-    cudaMalloc((void **)device_k_ptr, maskSize);
+    CHECK(cudaMalloc(&device_x_ptr, inputSize));
+    CHECK(cudaMalloc(&device_y_ptr, outputSize));
+    CHECK(cudaMalloc(&device_k_ptr, maskSize));
 
     // Copy Inout data to device
-    cudaMemcpy(*device_x_ptr, host_x, inputSize, cudaMemcpyHostToDevice);
+    cudaMemcpy(device_x_ptr, host_x, inputSize, cudaMemcpyHostToDevice);
     // Copy Mask data to device
-    cudaMemcpy(*device_k_ptr, host_k, maskSize, cudaMemcpyHostToDevice);
+    cudaMemcpy(device_k_ptr, host_k, maskSize, cudaMemcpyHostToDevice);
 
     // Useful snippet for error checking
     // cudaError_t error = cudaGetLastError();

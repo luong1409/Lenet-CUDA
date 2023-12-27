@@ -14,7 +14,6 @@ __global__ void prefn_marker_kernel()
 
 __host__ void GPU_Utils::insert_post_barrier_kernel()
 {
-
     dim3 GridDim(1, 1, 1);
     dim3 BlockDim(1, 1, 1);
     do_not_remove_this_kernel<<<GridDim, BlockDim>>>();
