@@ -45,7 +45,7 @@ void Conv_GPU::forward(const Matrix &bottom)
     // Start layer timer
     // auto start_time_layer = std::chrono::high_resolution_clock::now();
     // Data transfer CPU to GPU
-    gpuInterface.conv_forward_gpu_prolog(y, x, k, y_d, x_d, k_d, B, M, C, height_in, width_in, K);
+    gpuInterface.conv_forward_gpu_prolog(y, x, k, &y_d, &x_d, &k_d, B, M, C, height_in, width_in, K);
 
     // Start kernel timer
     auto start_time_kernel = std::chrono::high_resolution_clock::now();
