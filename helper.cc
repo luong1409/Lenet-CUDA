@@ -43,7 +43,7 @@ Network createNetwork_GPU()
     dnn.add_loss(loss);
 
     // load weights
-    dnn.load_parameters("./build/weights-86.bin");
+    dnn.load_parameters("./build/weights.bin");
 
     return dnn;
 }
