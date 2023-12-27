@@ -46,13 +46,13 @@ int main()
 
     // define layers for architecture Lenet-5
     // Layer 1: 6 kernels with size 5 × 5, use ReLU activation function.
-    Layer *conv1 = new Conv(1, 28, 28, 6, 5, 5, 1, 0, 0);
+    Layer *conv1 = new Conv(1, 28, 28, 6, 5, 5);
     // Layer 2: Max Pooling with size 2 × 2
-    Layer *pool1 = new MaxPooling(6, 24, 24, 2, 2, 1);
+    Layer *pool1 = new MaxPooling(6, 24, 24, 2, 2, 2);
     // Layer 3: 16 kernels with size 5 × 5, use ReLU activation function.
-    Layer *conv2 = new Conv(6, 23, 23, 16, 5, 5, 1, 0, 0);
+    Layer *conv2 = new Conv(6, 12, 12, 16, 5, 5);
     // Layer 4: Max Pooling with size 2 × 2
-    Layer *pool2 = new MaxPooling(16, 19, 19, 2, 2, 1);
+    Layer *pool2 = new MaxPooling(16, 8, 8, 2, 2, 2);
     // Layer 5: Flatten
     // Layer 6: dense layer with 120 outputs, use ReLU activation function
     Layer *fc3 = new FullyConnected(pool2->output_dim(), 120);
@@ -90,8 +90,8 @@ int main()
     SGD opt(0.001, 5e-4, 0.9, true);
 
     // SGD opt(0.001);
-    const int n_epoch = 5;
-    const int batch_size = 128;
+    const int n_epoch = 1;
+    const int batch_size = 50;
     for (int epoch = 0; epoch < n_epoch; epoch++)
     {
         shuffle_data(dataset.train_data, dataset.train_labels);
@@ -119,11 +119,13 @@ int main()
         }
 
         // test
-        dnn.forward(dataset.test_data);
-        float acc = compute_accuracy(dnn.output(), dataset.test_labels);
-        std::cout << std::endl;
-        std::cout << epoch + 1 << "-th epoch, test acc: " << acc << std::endl;
-        std::cout << std::endl;
+        // dnn.forward(dataset.test_data);
+        // float acc = compute_accuracy(dnn.output(), dataset.test_labels);
+        // std::cout << std::endl;
+        // std::cout << epoch + 1 << "-th epoch, test acc: " << acc << std::endl;
+        // std::cout << std::endl;
     }
+    dnn.save_parameters("./build/weights.bin")
+
     return 0;
 }
