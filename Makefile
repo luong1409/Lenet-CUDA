@@ -46,8 +46,8 @@ layer:      src/layer/conv.cc src/layer/ave_pooling.cc src/layer/fully_connected
 
 custom:
 	nvcc --compile src/layer/custom/gpu-utils.cu -o src/layer/custom/gpu-utils.o -I./ -L/usr/local/cuda/lib64 -lcudart
-	# nvcc --compile src/layer/custom/gpu-new-forward-optimized.cu -o src/layer/custom/gpu-new-forward-optimized.o -I./ -L/usr/local/cuda/lib64 -lcudart
-	nvcc --compile src/layer/custom/gpu-new-forward-basic.cu -o src/layer/custom/gpu-new-forward-basic.o -I./ -L/usr/local/cuda/lib64 -lcudart
+	nvcc --compile src/layer/custom/gpu-new-forward-optimized.cu -o src/layer/custom/gpu-new-forward-optimized.o -I./ -L/usr/local/cuda/lib64 -lcudart
+	# nvcc --compile src/layer/custom/gpu-new-forward-basic.cu -o src/layer/custom/gpu-new-forward-basic.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
 loss:       src/loss/cross_entropy_loss.cc src/loss/mse_loss.cc
 	nvcc --compile src/loss/cross_entropy_loss.cc -o src/loss/cross_entropy_loss.o -I./ -L/usr/local/cuda/lib64 -lcudart
