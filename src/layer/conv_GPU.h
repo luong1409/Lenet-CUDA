@@ -4,6 +4,7 @@
 #include <vector>
 #include <chrono>
 #include "../layer.h"
+#include <cuda_runtime_api.h>
 #include "./custom/gpu-new-forward.h"
 #include "./custom/gpu-utils.h"
 
