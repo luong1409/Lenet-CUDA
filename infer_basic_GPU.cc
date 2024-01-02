@@ -21,7 +21,7 @@ void inference_only(int batch_size)
 int main(int argc, char *argv[])
 {
 
-    int batch_size = 10000;
+    int batch_size = 1000;
 
     if (argc == 2)
     {
