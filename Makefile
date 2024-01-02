@@ -22,7 +22,7 @@ infer_basic_GPU.o:       infer_basic_GPU.cc
 	nvcc --compile infer_basic_GPU.cc  -I ../libgputk/ -I./
 
 run_infer_basic_GPU:		infer_basic_GPU
-	./infer_basic_GPU
+	./infer_basic_GPU 1000
 #########################################################################################################################################
 
 helper.o:        helper.cc
