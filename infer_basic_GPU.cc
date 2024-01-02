@@ -1,10 +1,10 @@
 #include "helper.h"
 
-void inference_only()
+void inference_only(int batch_size)
 {
     std::cout << "Loading mnist data...";
     MNIST dataset("./data/");
-    dataset.read_test_data(0);
+    dataset.read_test_data(batch_size);
     std::cout << "Done" << std::endl;
 
     std::cout << "Loading model...";
@@ -21,15 +21,15 @@ void inference_only()
 int main(int argc, char *argv[])
 {
 
-    // int batch_size = 10000;
+    int batch_size = 10000;
 
-    // if (argc == 2)
-    // {
-    //     batch_size = atoi(argv[1]);
-    // }
+    if (argc == 2)
+    {
+        batch_size = atoi(argv[1]);
+    }
 
-    // std::cout << "Test batch size: " << batch_size << std::endl;
-    inference_only();
+    std::cout << "Test batch size: " << batch_size << std::endl;
+    inference_only(batch_size);
 
     return 0;
 }
