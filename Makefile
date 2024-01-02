@@ -19,7 +19,7 @@ infer_basic_GPU:     infer_basic_GPU.o custom
 	nvcc -o infer_basic_GPU -lm -lcuda -lrt infer_basic_GPU.o helper.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/layer/custom/*.o -I ../libgputk/lib/libgputk.a -I./ 
 
 infer_basic_GPU.o:       infer_basic_GPU.cc
-	nvcc --compile infer_basic_GPU.cc -I./ -L/usr/local/cuda/lib64 -lcudart
+	nvcc --compile infer_basic_GPU.cc  -I ../libgputk/ -I./
 
 run_infer_basic_GPU:		infer_basic_GPU
 	./infer_basic_GPU
