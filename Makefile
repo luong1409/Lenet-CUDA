@@ -34,7 +34,7 @@ network.o:      src/network.cc
 mnist.o:        src/mnist.cc
 	nvcc --compile src/mnist.cc -o src/mnist.o  -I ../libgputk/ -I./
 
-layer:      src/layer/conv.cc src/layer/ave_pooling.cc src/layer/fully_connected.cc src/layer/max_pooling.cc src/layer/relu.cc src/layer/sigmoid.cc src/layer/softmax.cc 
+layer:      src/layer/conv.cc src/layer/ave_pooling.cc src/layer/conv_GPU.cu src/layer/fully_connected.cc src/layer/max_pooling.cc src/layer/relu.cc src/layer/sigmoid.cc src/layer/softmax.cc 
 	nvcc --compile src/layer/ave_pooling.cc -o src/layer/ave_pooling.o -I ../libgputk/ -I./
 	nvcc --compile src/layer/conv.cc -o src/layer/conv.o -I ../libgputk/ -I./
 	nvcc --compile src/layer/conv_GPU.cu -o src/layer/conv_GPU.o -I ../libgputk/ -I./
