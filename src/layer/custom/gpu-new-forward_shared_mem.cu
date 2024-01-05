@@ -68,7 +68,7 @@ __host__ void GPUInterface::conv_forward_gpu_full(float *output_data, const floa
                                                   const int num_samples, const int output_channel, const int input_channel,
                                                   const int height_in, const int width_in, const int kernel_height)
 {
-    std::cout << ". Optimization 2 - Shared memory:\n";
+    std::cout << ". Optimization version Shared Memory:\n";
     int TILE_WIDTH_SHARED;
     if (input_channel == 1)
     {
@@ -102,13 +102,11 @@ __host__ void GPUInterface::conv_forward_gpu_full(float *output_data, const floa
 
     // Launch kernel
     GpuTimer time_kernel;
-	time_kernel.Start();
+    time_kernel.Start();
     conv_forward_kernel<<<numBlocksInGrid, numThreadsPerBlock, shmem_size>>>(device_output, device_input, device_weight, num_samples, output_channel, input_channel, height_in, width_in, kernel_height);
     time_kernel.Stop();
     float time_kernel_ms = time_kernel.Elapsed();
     std::cout << "\t - Kernel Time: " << time_kernel_ms << " ms" << std::endl;
-
-
 
     cudaMemcpy(output_data, device_output, outputSize, cudaMemcpyDeviceToHost);
 
