@@ -18,7 +18,7 @@ To kickstart this endeavor, the Mini-DNN-CPP (Mini-DNN) framework will serve as 
 The chosen dataset for this project is Fashion MNIST, a collection of single-channel images with dimensions of 28 x 28 pixels. The output layer comprises 10 nodes, with each node representing the likelihood of the input belonging to one of the 10 classes, such as T-shirt, dress, sneaker, boot, and others.
 
 # How to run
-## Run Training Process
+## Run Training Process and Write down the weight of model
 ```shell
 git clone https://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@github.com/luong1409/Lenet-CUDA.git
 cd Lenet-CUDA
@@ -33,7 +33,37 @@ git clone https://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@github.com/luong1409/
 cd Lenet-CUDA
 make clean
 make setup
-make custom0
+make basic
+make test_model
+```
+
+## Run test GPU inference version Contant Memory Optimization
+```shell
+git clone https://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@github.com/luong1409/Lenet-CUDA.git
+cd Lenet-CUDA
+make clean
+make setup
+make constant_mem
+make test_model
+```
+
+## Run test GPU inference version Shared Memory Optimization
+```shell
+git clone https://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@github.com/luong1409/Lenet-CUDA.git
+cd Lenet-CUDA
+make clean
+make setup
+make shared_mem
+make test_model
+```
+
+## Run test GPU inference version Combine of Constant Memory and Shared Memory Optimization
+```shell
+git clone https://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@github.com/luong1409/Lenet-CUDA.git
+cd Lenet-CUDA
+make clean
+make setup
+make combine
 make test_model
 ```
 
