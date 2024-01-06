@@ -4,7 +4,7 @@
 
 #define TILE_WIDTH 16
 
-__constant__ float dc_filter[2400];
+__constant__ float mask[2400];
 
 __global__ void conv_forward_kernel(float *output, const float *input, const int num_samples,
                                     const int output_channel, const int input_channel,
@@ -36,7 +36,7 @@ __global__ void conv_forward_kernel(float *output, const float *input, const int
                                          (input_channel_idx * (height * width)) +
                                          (input_row * width) +
                                          input_col] *
-                                   dc_filter[(output_feature_idx * (input_channel * kernel_size * kernel_size)) +
+                                   mask[(output_feature_idx * (input_channel * kernel_size * kernel_size)) +
                                              (input_channel_idx * (kernel_size * kernel_size)) +
                                              (kernel_row * kernel_size) +
                                              kernel_col];
@@ -65,7 +65,7 @@ __host__ void GPUInterface::conv_forward_gpu_full(float *output_data, const floa
 
     // Copy input and mask data to device
     cudaMemcpy(device_input, input_data, num_samples * input_channel * height_in * width_in * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpyToSymbol(dc_filter, weight_data, output_channel * input_channel * kernel_height * kernel_height * sizeof(float));
+    cudaMemcpyToSymbol(mask, weight_data, output_channel * input_channel * kernel_height * kernel_height * sizeof(float));
 
     // Set the kernel dimensions and call the kernel
     int Z = ceil(1.0 * height_out / TILE_WIDTH) * ceil(1.0 * width_out / TILE_WIDTH);
