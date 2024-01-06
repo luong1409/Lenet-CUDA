@@ -17,7 +17,7 @@ void Conv_GPU::init()
     // std::cout << weight.colwise().sum() << std::endl;
     // std::cout << weight.colwise().sum() + bias.transpose() << std::endl;
 }
-
+//
 void Conv_GPU::forward(const Matrix &bottom)
 {
     int n_sample = bottom.cols();
