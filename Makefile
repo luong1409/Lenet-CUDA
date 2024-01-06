@@ -3,7 +3,7 @@ test_cpu.o: test_cpu.cc
 	nvcc -arch=sm_75 --compile test_cpu.cc -I./ -L/usr/local/cuda/lib64 -lcudart
 
 test_cpu: test_cpu.o
-	nvcc -arch=sm_75 -o test_cpu -lm -lcuda -lrt test_cpu.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o src/layer/custom/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
+	nvcc -arch=sm_75 -o test_cpu -lm -lcuda -lrt test_cpu.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
 test_model_cpu: test_cpu
 	./test_cpu
@@ -30,12 +30,6 @@ train_model: train
 	./train
 
 ############################################################################
-
-main: main.o custom
-	nvcc -arch=sm_75 -o main -lm -lcuda -lrt main.o dnnNetwork.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
-
-main.o: main.cc
-	nvcc -arch=sm_75 --compile main.cc -I./ -L/usr/local/cuda/lib64 -lcudart
 
 dnnNetwork.o: dnnNetwork.cc
 	nvcc -arch=sm_75 --compile dnnNetwork.cc -I./ -L/usr/local/cuda/lib64 -lcudart
