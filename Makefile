@@ -1,12 +1,23 @@
 ##############################################################################
-test.o: test.cc
-	nvcc -arch=sm_75 --compile test.cc -I./ -L/usr/local/cuda/lib64 -lcudart
+test_cpu.o: test_cpu.cc
+	nvcc -arch=sm_75 --compile test_cpu.cc -I./ -L/usr/local/cuda/lib64 -lcudart
 
-test: test.o
-	nvcc -arch=sm_75 -o test -lm -lcuda -lrt test.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o src/layer/custom/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
+test_cpu: test_cpu.o
+	nvcc -arch=sm_75 -o test_cpu -lm -lcuda -lrt test_cpu.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o src/layer/custom/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
 
-test_model: test
-	./test
+test_model_cpu: test_cpu
+	./test_cpu
+
+#############################################################################
+test_gpu.o: test_gpu.cc
+	nvcc -arch=sm_75 --compile test_gpu.cc -I./ -L/usr/local/cuda/lib64 -lcudart
+
+test_gpu: test_gpu.o
+	nvcc -arch=sm_75 -o test_gpu -lm -lcuda -lrt test_gpu.o src/network.o src/mnist.o src/layer/*.o src/loss/*.o src/optimizer/*.o src/layer/custom/*.o -I./ -L/usr/local/cuda/lib64 -lcudart
+
+test_model_gpu: test_gpu
+	./test_gpu
+
 ##############################################################################
 
 train: train.o 

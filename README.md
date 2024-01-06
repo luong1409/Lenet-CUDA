@@ -6,7 +6,7 @@ Source code of Lenet 5 model implemented by using C/C++.
 |:----------------|:------:|
 |Nguyễn Minh Lương|19120571|
 |Phạm Trần Gia Phú|20120348|
-|Trần Phú Nguyện|...|
+|Trần Phú Nguyện|1612448|
 
 # Introduction
 In this final project, we will implement and optimize the forward-pass of a convolutional layer utilizing CUDA. Convolutional layers are fundamental components of convolutional neural networks (CNNs).
@@ -27,14 +27,23 @@ make setup
 make train_model
 ```
 
-## Run CPU (sequential) version and GPU version of Forward pass
+## Run CPU (sequential) version
+```shell
+git clone https://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@github.com/luong1409/Lenet-CUDA.git
+cd Lenet-CUDA
+make clean
+make setup
+make test_model_cpu
+```
+
+## Run GPU basic version
 ```shell
 git clone https://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@github.com/luong1409/Lenet-CUDA.git
 cd Lenet-CUDA
 make clean
 make setup
 make basic
-make test_model
+make test_model_gpu
 ```
 
 ## Run test GPU inference version Contant Memory Optimization
@@ -44,7 +53,7 @@ cd Lenet-CUDA
 make clean
 make setup
 make constant_mem
-make test_model
+make test_model_gpu
 ```
 
 ## Run test GPU inference version Shared Memory Optimization
@@ -54,7 +63,7 @@ cd Lenet-CUDA
 make clean
 make setup
 make shared_mem
-make test_model
+make test_model_gpu
 ```
 
 ## Run test GPU inference version Combine of Constant Memory and Shared Memory Optimization
@@ -64,7 +73,7 @@ cd Lenet-CUDA
 make clean
 make setup
 make combine
-make test_model
+make test_model_gpu
 ```
 
 # Dataset
