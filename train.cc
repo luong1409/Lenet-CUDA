@@ -109,7 +109,7 @@ int main()
         std::cout << std::endl;
     }
 
-    dnn.save_parameters("./model/weights-86.bin");
+    dnn.save_parameters("./model/weights.bin");
 
     return 0;
 }
