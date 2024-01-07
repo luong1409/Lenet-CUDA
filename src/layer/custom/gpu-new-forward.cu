@@ -30,6 +30,7 @@ __global__ void conv_forward_kernel(float *output, const float *input, const flo
                 {
                     int input_row = row_idx + kernel_row;
                     int input_col = col_idx + kernel_col;
+                    // output index: (sample index) + (channel index) + (current channel)
                     accumulator += input[(batch_idx * (input_channel * height * width)) +
                                          (input_channel_idx * (height * width)) +
                                          (input_row * width) +

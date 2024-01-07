@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "src/layer.h"
+#include "src/layer/custom/gpu-support.h"
 #include "src/layer/conv.h"
 #include "src/layer/conv_gpu.h"
 #include "src/layer/fully_connected.h"
