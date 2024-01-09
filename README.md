@@ -76,5 +76,6 @@ make combine
 make test_model_gpu
 ```
 
-# Dataset
-[MNIST dataset](https://github.com/zalandoresearch/fashion-mnist), network will be a single channel images with dimensions of 28 x 28 pixels
+# References
+## Dataset
+[MNIST dataset](https://github.com/zalandoresearch/fashion-mnist)
